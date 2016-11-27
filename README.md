@@ -5,7 +5,7 @@ Term: Fall 2016
 + Team Name:
 + Projec title: Lorem ipsum dolor sit amet
 + Team members
-	+ team member 1
+	+ Chenxi Huang (ch3129)
 	+ team member 2
 	+ team member 3
 	+ team member 4
