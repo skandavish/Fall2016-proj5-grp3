@@ -1,0 +1,49 @@
+---
+title: "Data Process"
+author: "Chenxi Huang (ch3129)"
+date: "November 27, 2016"
+output: html_document
+---
+
+```{r}
+# set the working directory
+setwd("C:/Users/celia/Desktop/Project 5")
+```
+
+```{r}
+# Load libraries
+library(data.table)
+
+```
+
+```{r}
+# read train data
+t1.train=Sys.time()
+san.dt.train=fread("./train_ver2/train_ver2.csv", header=TRUE, sep=",")
+san.dt.train
+dim(san.dt.train) # 13647309 by 48
+t2.train=Sys.time()
+t2.train-t1.train #record time
+# read.csv: Time difference of 24.1488 secs
+# fread: Time difference of 2.364688 mins
+
+# what's the dataset like?
+summary(san.dt.train)
+names(san.dt.train)
+```
+
+```{r}
+# read the test data
+t1.test=Sys.time()
+san.dt.test=fread("./test_ver2/test_ver2.csv", header=TRUE, sep=",")
+san.dt.test
+dim(san.dt.test) # 929615 by 24
+t2.test=Sys.time()
+t2.test-t1.test
+# read.csv: Time difference of 36.58124 secs
+# fread: Time difference of 3.744497 secs
+
+# what's the dataset like?
+summary(san.dt.test)
+names(san.dt.test)
+```
