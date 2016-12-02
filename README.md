@@ -6,7 +6,7 @@ Term: Fall 2016
 + Projec title: Lorem ipsum dolor sit amet
 + Team members
 	+ Chenxi Huang (ch3129)
-	+ team member 2
+	+ Jingdan Zhao (jz2678)
 	+ team member 3
 	+ team member 4
 	+ William Raikes
