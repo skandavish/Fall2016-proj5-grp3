@@ -1,0 +1,135 @@
+---
+title: "Data Process"
+author: "Chenxi Huang (ch3129)"
+date: "November 27, 2016"
+output: html_document
+---
+
+```{r}
+# set the working directory
+setwd("C:/Users/celia/Desktop/Project 5")
+set.seed(2016)
+```
+
+```{r}
+# Load libraries
+library(data.table)
+library(dplyr)
+#library(tidyr)
+#library(lubridate)
+
+```
+
+```{r}
+#################### Read and Save the Original Data ##################
+# read train data
+t1.train=Sys.time() 
+#san.train=read.csv("./train_ver2/train_ver2.csv", header=TRUE, sep=",")
+san.train=fread("./train_ver2/train_ver2.csv", header=TRUE, sep=",")
+san.train
+dim(san.train) # 13647309 by 48
+t2.train=Sys.time()
+t2.train-t1.train #record time
+
+# read.csv: Time difference of 24.1488 secs
+# fread: Time difference of 2.364688 mins
+# fread is faster but warnings occur using fread. 
+
+# what's the dataset like?
+summary(san.train)
+san.name.train=names(san.train)
+san.name.train
+
+# save original train data
+save(san.train,file="san.train.ori.RData")
+```
+
+
+```{r}
+# read the test data
+t1.test=Sys.time()
+#san.test=read.csv("./test_ver2/test_ver2.csv", header=TRUE, sep=",")
+san.test=fread("./test_ver2/test_ver2.csv", header=TRUE, sep=",")
+san.test
+dim(san.test) # 929615 by 24
+t2.test=Sys.time()
+t2.test-t1.test
+# read.csv: Time difference of 36.58124 secs
+# fread: Time difference of 3.744497 secs
+# fread is faster but warnings occur using fread. 
+
+# what's the dataset like?
+summary(san.test)
+san.name.test=names(san.test)
+san.name.test
+save(san.test,file="san.test.ori.RData")
+```
+
+
+
+
+```{r}
+##################### Sampling ####################
+set.seed(2016)
+# see what the dataset is like for each customer
+san.train[which(san.train$ncodpers==545103),]
+
+# recall data
+san.train;dim(san.train) # 13647309 by 48
+
+# unique: remove duplicated rows
+# discern unique Customer code
+unique.id.train=unique(san.train$ncodpers)
+unique.id.train
+summary(unique.id.train)
+# which rows have duplicated customer codes
+#dup.id.train=which(duplicated(san.train$ncodpers) == TRUE) 
+#dup.id.train
+
+length(unique.id.train) #956645 unique ids/customers
+#length(dup.id.train) #12690664
+
+
+sample.size=1*10^5 # decide sample size of customer ID
+#sample.size=3*10^5 # this is too big
+set.seed(2016)
+unique.id.train.samp=unique.id.train[sample(length(unique.id.train),sample.size,replace = FALSE)]
+unique.id.train.samp
+#length(san.train$ncodpers) # 13647309
+length(unique.id.train.samp) #100,000, use 1/100 of the size of the original data (13647309)
+# I tried 1/30 and 1/50, the Rdata of sampled train too big to store in Github
+
+
+# sample the dataset with only 300,000 unique customers now
+t1=Sys.time()
+san.train.samp=san.train[san.train$ncodpers %in% unique.id.train.samp,]
+t2=Sys.time()
+t2- t1
+# Time difference of 12.3628 secs 
+
+
+san.train.samp
+dim(san.train.samp) 
+# 4279620 by 48 (if id sample size = 300,000)
+# 1426529 by 48 (if id sample size = 100,000)
+san.train.samp.n=nrow(san.train.samp)
+# original size of data
+nrow(san.train)
+# size of data after sampling
+san.train.samp.n # now n=1426529 data in total compared to 13647309 in the original dataset
+# how much reduced?
+nrow(san.train) - san.train.samp.n 
+#9367689 #12220780 (if ID sample size=100,000)
+# str(san.train)
+
+#explore customer id
+san.train.samp[which(san.train.samp$ncodpers == 1488254)]
+# normally each customer has 17 records (one per month), but not all of them
+# so be careful of imbalanced comparisons
+
+# save sampled data
+# save original train data
+save(san.train.samp,file="san.train.samp(ori feat(smaller)).RData")
+
+```
+
