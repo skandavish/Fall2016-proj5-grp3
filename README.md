@@ -14,7 +14,7 @@ Term: Fall 2016
 	
 **Contribution statement**: 
 
-Chenxi, Skanda, Jingdan and Zachary agreed on the study.
+Chenxi, Skanda, Jingdan, William and Zachary agreed on the study.
 Chenxi cleaned the data. Chenxi explored feature engineering and feature selection.
 XX and XX developed baseline classification model for evaluation. 
 AB, EF and GH discussed and designed the model evaluation protocol. 
