@@ -18,19 +18,25 @@ library(dplyr)
 library(base)
 library(ggplot2)
 #library(tidyr)
-#library(lubridate)
+
 
 ```
 
 ```{r}
 # load data
-load("./san.train.samp(ori feat(smaller)).Rdata")
+load("./data/san.train.samp(ori feat(smaller)).Rdata")
 san.train.samp
 dim(san.train.samp) # 1426529 by 48
+
+san.train.samp.name=names(san.train.samp)
 # total features
-names(san.train.samp)[1:24]
+san.train.samp.feat=names(san.train.samp)[1:24]
 # total products
-names(san.train.samp)[25:48]
+san.train.samp.label=names(san.train.samp)[25:48]
+
+str(san.train.samp)
+summary(san.train.samp[1:24,])
+
 ```
 
 ```{r}
@@ -46,24 +52,80 @@ t2-t1
 unique(san.train.samp$fecha_dato)
 class(san.train.samp$fecha_dato)
 
+# save the data frame to compare later
+san.dt=san.train.samp
+
 # Are buying new product associated with Month?
 # Add one more column of feature to original 
-san.train.samp$month=month(san.train.samp$fecha_dato)
-unique(san.train.samp$month)
-table(san.train.samp$month)
-plot(table(san.train.samp$month),xlab="month",ylab="frequency",main="Month Vs Frequency in Sampled Data")
+#san.train.samp$month=month(san.train.samp$fecha_dato)
+#unique(san.train.samp$month)
+#table(san.train.samp$month)
+#plot(table(san.train.samp$month),xlab="month",ylab="frequency",main="Month Vs Frequency in Sampled Data")
 # save plot
-dev.copy(png,'month.png')
-dev.off()
+#dev.copy(png,'month.png')
+#dev.off()
 ```
 
 ```{r}
-############## Feature Creation ############
-############## New Feature 1: Month #############
-# so we have a new feature of month now 
-names(san.train.samp)
-san.train.samp$month
+# get some summary data first
+
+summa.dato.y=summary(year(san.train.samp$fecha_dato))
+summa.dato.y.table=table(year(san.train.samp$fecha_dato))
+summa.dato.m=summary(month(san.train.samp$fecha_dato))
+summa.dato.m.table=table(month(san.train.samp$fecha_dato))
+year2015.ind=which(year(san.train.samp$fecha_dato)==2015)
+year2016.ind=which(year(san.train.samp$fecha_dato)==2016)
+
+
+summa.empleado=summary(factor(san.train.samp$ind_empleado))
+table.empleado=table(factor(san.train.samp$ind_empleado))
+empleado.A.ind=which(san.train.samp$ind_empleado=="A")
+empleado.B.ind=which(san.train.samp$ind_empleado=="B")
+empleado.F.ind=which(san.train.samp$ind_empleado=="F")
+empleado.N.ind=which(san.train.samp$ind_empleado=="N")
+empleado.P.ind=which(san.train.samp$ind_empleado=="P")
+empleado.A.ind;length(empleado.A.ind) #232
+empleado.B.ind;length(empleado.B.ind) #341
+empleado.F.ind;length(empleado.F.ind) #209
+empleado.N.ind;length(empleado.N.ind) # 11422931
+empleado.P.ind;length(empleado.P.ind) #0
+
+
+summa.pais=summary(factor(san.train.samp$pais_residencia))
+summa.sexo=summary(factor(san.train.samp$sexo))
+summa.alta=summary(year(san.train.samp$fecha_alta))
+summa.ult_fec_cli_1t=summary(factor(san.train.samp$ult_fec_cli_1t))
+summa.indrel_1mes=summary(factor(san.train.samp$indrel_1mes))
+summa.tiprel_1mes=summary(factor(san.train.samp$tiprel_1mes))
+summa.indresi=summary(factor(san.train.samp$indresi))
+summa.indext=summary(factor(san.train.samp$indext))
+summa.conyuemp=summary(factor(san.train.samp$conyuemp))
+summa.canal_entrada=summary(factor(san.train.samp$canal_entrada))
+summa.indfall=summary(factor(san.train.samp$indfall))        
+summa.segmento=summary(factor(san.train.samp$segmento))
+ 
+table.pais=table(factor(san.train.samp$pais_residencia))
+table.sexo=table(factor(san.train.samp$sexo))
+table.alta=table(year(san.train.samp$fecha_alta))
+table.ult_fec_cli_1t=table(factor(san.train.samp$ult_fec_cli_1t))
+table.indrel_1mes=table(factor(san.train.samp$indrel_1mes))
+table.tiprel_1mes=table(factor(san.train.samp$tiprel_1mes))
+table.indresi=table(factor(san.train.samp$indresi))
+table.indext=table(factor(san.train.samp$indext))
+table.conyuemp=table(factor(san.train.samp$conyuemp))
+table.canal_entrada=table(factor(san.train.samp$canal_entrada))
+table.indfall=table(factor(san.train.samp$indfall))        
+table.segmento=table(factor(san.train.samp$segmento))                            
+
+
+# looping to create summary tables for each feature
+#list.table=list()
+# for (k in length(names(san.train.samp))){
+ #  list.table[[k]]=table(factor(san.train.samp$ind_empleado))}
+ #list.table[[3]]
+
 ```
+
 
 ```{r}
 ############## Missing Values ################
@@ -73,7 +135,7 @@ ind.mis
 mis.name=names(san.train.samp)[ind.mis]
 mis.name
 #"age","fecha_alta","ind_nuevo","antiguedad","indrel","tipodom","cod_prov","ind_actividad_cliente","renta","ind_nomina_ult1","ind_nom_pens_ult1"   
-length(ind.mis.name) 
+length(mis.name) 
 # 11 columns have missing values
 ```
 
@@ -231,8 +293,9 @@ which.max(table(san.train.samp$nomprov))
 san.train.samp$cod_prov[is.na(san.train.samp$cod_prov)]=which.max(table(san.train.samp$cod_prov))
 sum(is.na(san.train.samp$cod_prov)) #0
 
-san.train.samp$nomprov[which(san.train.samp$nomprov=="")]= "MADRID"
-sum(san.train.samp$nomprov == "") #0
+
+#san.train.samp$nomprov[which(san.train.samp$nomprov=="")]= "MADRID"
+#sum(san.train.samp$nomprov == "") #0
 
 ```
 
@@ -380,34 +443,218 @@ ind_nomina.mis=which(is.na(san.train.samp$ind_nomina_ult1))
 sum(is.na(san.train.samp$ind_nomina_ult1))
 # 1609
 # fill in missing values for products by looking at previous months
-san.train.samp[ 377559,]
-san.train.samp[san.train.samp$ncodpers== 716415,]
+#san.train.samp[ 377559,]
+#san.train.samp[san.train.samp$ncodpers== 716415,]
 # but previous months are also NA
 # just make them zero then
 # luckily not a large group
 
-san.train.samp[is.na(san.train.samp$ind_nomina_ult1)]=0
+table.nomia=table(san.train.samp$ind_nomina_ult1)
+#     0 : 1 = 1347882 : 77038 
+#san.train.samp[is.na(san.train.samp$ind_nomina_ult1)]=0
 #warnings()
+
+sum(is.na(san.train.samp$ind_nom_pens_ult1)) #1609
+#summary(san.train.samp$ind_nom_pens_ult1)
+table.pens=table(san.train.samp$ind_nom_pens_ult1)   
+#   0  :     1  = 1341419  : 83501 
+pen.na.ind=which(is.na(san.train.samp$ind_nom_pens_ult1))
+
+
+####################### warnings ##############################3
+######## changin NA to o will alter the values of other string variables. 
+######### fix this by deleting the column first and then add another new column with the values desired
+
+
+#### create values of new columns first ####
+
+nomia.1.ind=which(san.train.samp$ind_nomina_ult1==1)
+pens.1.ind=which(san.train.samp$ind_nom_pens_ult1==1)
+nomia.vec=rep(0,length(san.train.samp$ind_nomina_ult1))
+pens.vec=rep(0,length(san.train.samp$ind_nom_pens_ult1))
+nomia.vec[nomia.1.ind]=1
+pens.vec[pens.1.ind]=1
+table(nomia.vec) == table.nomia
+table(pens.vec) == table.pens
+
+recibo.vec=san.train.samp$ind_recibo_ult1
+# Na values converted to 0 value=1 unchanged.
+
+
+####### deleting old columns
+san.train.samp=as.data.frame(san.train.samp)
+drops=c("ind_nomina_ult1","ind_nom_pens_ult1","ind_recibo_ult1")
+san.train.samp=san.train.samp[ , !(names(san.train.samp) %in% drops)]
+dim(san.train.samp) #1426529 by 45, 3 columns down
+names(san.train.samp)
+
+
+######## append new columns to where old columns are #########
+san.train.samp.name
+
+san.train.samp$ind_nomina_ult1 = nomia.vec
+san.train.samp$ind_nom_pens_ult1 = pens.vec
+san.train.samp$ind_recibo_ult1 = recibo.vec
+  
+dim(san.train.samp) #  1426529 by 48, back to original # of columns
+# adjusting locations of columns
+names(san.train.samp)
+#san.train.samp=cbind(san.train.samp[,1:45],san.train.samp$ind_nomina_ult1,san.train.samp$ind_nom_pens_ult1,san.train.samp$ind_recibo_ult1)
+names(san.train.samp) == san.train.samp.name
+# all true
+
+
 sum(is.na(san.train.samp$ind_nomina_ult1)) #0
-san.train.samp$ind_nomina_ult1[ind_nomina.mis]
+#san.train.samp$ind_nomina_ult1[ind_nomina.mis]
+sum(is.na(san.train.samp$ind_nom_pens_ult1)) #0
+san.train.samp$ind_recibo_ult1 == san.dt$ind_recibo_ult1 #TRUE
+san.train.samp$fecha_dato == san.dt$fecha_dato #TRUE
 
 # done here
+
 ```
-
-
 ```{r}
 ############################ 11. Missing Values: "ind_nom_pens_ult1" ########################
 mis.name[11]
 # "ind_nom_pens_ult1"
 # Pensions
-sum(is.na(san.train.samp$ind_nom_pens_ult1))
+#sum(is.na(san.train.samp$ind_nom_pens_ult1))
+#summary(san.train.samp$ind_nom_pens_ult1)
+#table(san.train.samp$ind_nom_pens_ult1)
+#pen.na.ind=which(is.na(san.train.samp$ind_nom_pens_ult1))
+#pen.na.ind
+
 # 0
 #? how so 
 # before setting up payroll=0, it was 1609
-san.train.samp$ind_nom_pens_ult1[ind_nomina.mis]
-san.train.samp[is.na(san.train.samp$ind_nom_pens_ult1)]=0
-san.train.samp$ind_nom_pens_ult1[ind_nomina.mis]
+#san.train.samp$ind_nom_pens_ult1[ind_nomina.mis]
+#san.train.samp[is.na(san.train.samp$ind_nom_pens_ult1)]=0
+#san.train.samp$ind_nom_pens_ult1[ind_nomina.mis]
 # looks like ind_nomina_ult1 and ind_nom_pens_ult1 are dependent!!!
+```
+
+```{r}
+################## Missing Values for Str ############
+#empleado.mis.ind=which(san.train.samp$ind_empleado=="")
+# assign values to the marjority
+#san.train.samp$ind_empleado[empleado.mis.ind]="N"
+
+
+# decided not to fill in "" of strings. let them be a group.
+
+```
+
+
+```{r}
+# check summary of statistics to see what's wrong
+df=san.train.samp
+dt=san.train.samp
+
+df_summa.dato.y=summary(year(df$fecha_dato))
+df_table.dato.y=table(year(df$fecha_dato))
+df_summa.dato.m=summary(month(df$fecha_dato))
+df_table.dato.m=table(month(df$fecha_dato))
+df.year2015.ind=which(year(df$fecha_dato)==2015)
+df.year2016.ind=which(year(df$fecha_dato)==2016)
+
+
+df_summa.empleado=summary(factor(df$ind_empleado))
+df_table.empleado=table(factor(df$ind_empleado))
+df_empleado.A.ind=which(df$ind_empleado=="A")
+df_empleado.B.ind=which(df$ind_empleado=="B")
+df_empleado.F.ind=which(df$ind_empleado=="F")
+df_empleado.N.ind=which(df$ind_empleado=="N")
+df_empleado.P.ind=which(df$ind_empleado=="P")
+df_empleado.A.ind;length(empleado.A.ind) #232
+df_empleado.B.ind;length(empleado.B.ind) #341
+df_empleado.F.ind;length(empleado.F.ind) #209
+df_empleado.N.ind;length(empleado.N.ind) # 1422931
+df_empleado.P.ind;length(empleado.P.ind) #0
+
+
+df_summa.pais=summary(factor(df$pais_residencia))
+df_summa.sexo=summary(factor(df$sexo))
+df_summa.alta=summary(year(df$fecha_alta))
+df_summa.ult_fec_cli_1t=summary(factor(df$ult_fec_cli_1t))
+df_summa.indrel_1mes=summary(factor(df$indrel_1mes))
+df_summa.tiprel_1mes=summary(factor(df$tiprel_1mes))
+df_summa.indresi=summary(factor(df$indresi))
+df_summa.indext=summary(factor(df$indext))
+df_summa.conyuemp=summary(factor(df$conyuemp))
+df_summa.canal_entrada=summary(factor(df$canal_entrada))
+df_summa.indfall=summary(factor(df$indfall))        
+df_summa.segmento=summary(factor(df$segmento))
+ 
+df_table.pais=table(factor(df$pais_residencia))
+df_table.sexo=table(factor(df$sexo))
+df_table.alta=table(year(df$fecha_alta))
+df_table.ult_fec_cli_1t=table(factor(df$ult_fec_cli_1t))
+df_table.indrel_1mes=table(factor(df$indrel_1mes))
+df_table.tiprel_1mes=table(factor(df$tiprel_1mes))
+df_table.indresi=table(factor(df$indresi))
+df_table.indext=table(factor(df$indext))
+df_table.conyuemp=table(factor(df$conyuemp))
+df_table.canal_entrada=table(factor(df$canal_entrada))
+df_table.indfall=table(factor(df$indfall))        
+df_table.segmento=table(factor(df$segmento))      
+
+
+# check logicals 
+summary(df_table.pais==table.pais)
+summary(df_table.sexo==table.sexo)
+summary(df_table.alta==table.alta)
+summary(df_table.ult_fec_cli_1t==table.ult_fec_cli_1t)
+summary(df_table.indrel_1mes==table.indrel_1mes)
+summary(df_table.tiprel_1mes==table.tiprel_1mes)
+summary(df_table.indresi==table.indresi)
+summary(df_table.indext==table.indext)
+summary(df_table.conyuemp==table.conyuemp)
+summary(df_table.canal_entrada==table.canal_entrada)
+summary(df_table.indfall==table.indfall)     
+summary(df_table.segmento==table.segmento)
+
+# all true. good!
+# this means no string values has been changed.
+
+```
+
+
+
+```{r}
+############## Feature Creation ############
+############## New Feature 1: Month #############
+# create a year_month column
+names(df)
+
+df$year_mon=sprintf("%s_%s",year(df$fecha_dato),month(df$fecha_dato))
+df$year_mon
+table(factor(df$year_mon))
+names(df)
+str(df)
+
+# check whether true
+df$fecha_dato == san.dt$fecha_dato # true
+df$pais_residencia == san.dt$pais_residencia # true
+
+
+
+## create a month column 
+### ** this is for the multinomial only. not for anyone else.
+
+# Are buying new product associated with Month?
+#Add one more column of feature to original 
+dt$month=month(dt$fecha_dato)
+unique(dt$month)
+table(dt$month)
+
+dt=cbind(dt[,c(1:24,49)],dt[,25:48])
+names(dt)
+str(dt)
+
+# check whether true
+df$fecha_dato == san.dt$fecha_dato # true
+dt$pais_residencia == san.dt$pais_residencia # true
+
 ```
 
 
@@ -420,7 +667,67 @@ which(sapply(san.train.samp,function(x) any(is.na(x))) == TRUE)
 
 
 ```{r}
-# save Rdata
-save(san.train.samp,file = "san.train.samp(cleaned).RData")
+# separate months and save in Rdata
+table(factor(df$year_mon))
+
+df.2015_1=filter(df,year_mon == "2015_1")
+df.2015_2=filter(df,year_mon == "2015_2")
+df.2015_3=filter(df,year_mon == "2015_3")
+df.2015_4=filter(df,year_mon == "2015_4")
+df.2015_5=filter(df,year_mon == "2015_5")
+df.2015_6=filter(df,year_mon == "2015_6")
+df.2015_7=filter(df,year_mon == "2015_7")
+df.2015_8=filter(df,year_mon == "2015_8")
+df.2015_9=filter(df,year_mon == "2015_9")
+df.2015_10=filter(df,year_mon == "2015_10")
+df.2015_11=filter(df,year_mon == "2015_11")
+df.2015_12=filter(df,year_mon == "2015_12")
+df.2016_1=filter(df,year_mon == "2016_1")
+df.2016_2=filter(df,year_mon == "2016_2")
+df.2016_3=filter(df,year_mon == "2016_3")
+df.2016_4=filter(df,year_mon == "2016_4")
+df.2016_5=filter(df,year_mon == "2016_5")
+nrow(df.2015_1) == table(factor(df$year_mon))[1]
+nrow(df.2015_2) == table(factor(df$year_mon))[5]
+nrow(df.2015_3) == table(factor(df$year_mon))[6]
+nrow(df.2015_4) == table(factor(df$year_mon))[7]
+nrow(df.2015_5) == table(factor(df$year_mon))[8]
+nrow(df.2015_6) == table(factor(df$year_mon))[9]
+nrow(df.2015_7) == table(factor(df$year_mon))[10]
+nrow(df.2015_8) == table(factor(df$year_mon))[11]
+nrow(df.2015_9) == table(factor(df$year_mon))[12]
+nrow(df.2015_10) == table(factor(df$year_mon))[2]
+nrow(df.2015_11) == table(factor(df$year_mon))[3]
+nrow(df.2015_12) == table(factor(df$year_mon))[4]
+nrow(df.2016_1) == table(factor(df$year_mon))[13]
+nrow(df.2016_2) == table(factor(df$year_mon))[14]
+nrow(df.2016_3) == table(factor(df$year_mon))[15]
+nrow(df.2016_4) == table(factor(df$year_mon))[16]
+nrow(df.2016_5) == table(factor(df$year_mon))[17]
+
 ```
 
+
+```{r}
+# save Rdata
+save(df,file = "df(final).RData")
+save(dt,file = "dt(other).RData")
+
+save(df.2015_1,file="df.2015_1.Rdata")
+save(df.2015_2,file="df.2015_2.Rdata")
+save(df.2015_3,file="df.2015_3.Rdata")
+save(df.2015_4,file="df.2015_4.Rdata")
+save(df.2015_5,file="df.2015_5.Rdata")
+save(df.2015_6,file="df.2015_6.Rdata")
+save(df.2015_7,file="df.2015_7.Rdata")
+save(df.2015_8,file="df.2015_8.Rdata")
+save(df.2015_9,file="df.2015_9.Rdata")
+save(df.2015_10,file="df.2015_10.Rdata")
+save(df.2015_11,file="df.2015_11.Rdata")
+save(df.2015_12,file="df.2015_12.Rdata")
+save(df.2016_1,file="df.2016_1.Rdata")
+save(df.2016_2,file="df.2016_2.Rdata")
+save(df.2016_3,file="df.2016_3.Rdata")
+save(df.2016_4,file="df.2016_4.Rdata")
+save(df.2016_5,file="df.2016_5.Rdata")
+```
