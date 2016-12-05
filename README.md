@@ -5,7 +5,7 @@ Term: Fall 2016
 + Team Name:
 + Projec title: Lorem ipsum dolor sit amet
 + Team members
-	+ Chenxi Huang (ch3129)
+	+ Chenxi Huang (ch3129) (Celia)
 	+ Jingdan Zhao (jz2678)
 	+ Zachary (Zach) Chen (zc2317)
 	+ team member 4
