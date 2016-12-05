@@ -16,6 +16,7 @@ Term: Fall 2016
 
 Chenxi, Skanda, Jingdan, William and Zachary agreed on the study.
 Chenxi cleaned the data. Chenxi explored feature engineering and feature selection.
+Skanda created the clean dataset using a lean code. Skanda also created new features, rolled up the data and ensured no loss in information. Skanda tried boosting, random forest and multinomial logistic regression for predictions. 
 XX and XX developed baseline classification model for evaluation. 
 AB, EF and GH discussed and designed the model evaluation protocol. 
 CD carried out the computation for model evaluation. 
