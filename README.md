@@ -44,6 +44,8 @@ All team members approve our work presented in our GitHub repository including t
 + ################# References ###################
 
 [MLKNN](http://cs.nju.edu.cn/zhouzh/zhouzh.files/publication/pr07.pdf) 
+[MLPUGS](https://cran.r-project.org/web/packages/MLPUGS/vignettes/tutorial.html)
+[mlR](https://mlr-org.github.io/mlr-tutorial/release/html/multilabel/index.html#predict)
 
 Following [suggestions](http://nicercode.github.io/blog/2013-04-05-projects/) by [RICH FITZJOHN](http://nicercode.github.io/about/#Team) (@richfitz). This folder is orgarnized as follows.
 
