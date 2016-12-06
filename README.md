@@ -2,8 +2,8 @@
 
 Term: Fall 2016
 
-+ Team Name:
-+ Projec title: Lorem ipsum dolor sit amet
++ Team Name: The Santander Data Group
++ Projec title: [Santander Product Recommendation](https://www.kaggle.com/c/santander-product-recommendation)
 + Team members
 	+ Chenxi Huang (ch3129) (Celia)
 	+ Jingdan Zhao (jz2678)
@@ -15,6 +15,9 @@ Term: Fall 2016
 +**Contribution statement**: 
 
 The whole team agreed on the study.
+CH, JZ, ZC and WR discussed and designed the model evaluation protocol. 
+CH, JZ, ZC and WR carried out the computation for model evaluation. 
+XXXXXXXX prepared the presentation
 
 Chenxi cleaned the data. 
 Chenxi explored feature engineering and feature selection.
@@ -22,11 +25,12 @@ Chenxi trained mlr and rFerns.
 Chenxi also explored naive bayes, multinomial and ML-KNN.
 
 
+
 Skanda created the clean dataset using a lean code. Skanda also created new features, rolled up the data and ensured no loss in information. Skanda tried boosting, random forest and multinomial logistic regression for predictions. 
 XX and XX developed baseline classification model for evaluation. 
-AB, EF and GH discussed and designed the model evaluation protocol. 
-CD carried out the computation for model evaluation. 
-All team members contributed to the GitHub repository and prepared the presentation. 
+
+
+All team members contributed to the GitHub repository. 
 All team members approve our work presented in our GitHub repository including this contribution statement.
 
 
