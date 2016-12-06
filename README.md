@@ -14,7 +14,7 @@ To support needs for a range of financial decisions, Santander Bank offers a len
 	+ Chenxi Huang (ch3129) (Celia)
 	+ Jingdan Zhao (jz2678)
 	+ Zachary (Zach) Chen (zc2317)
-	+ team member 4
+	+ Skanda Vishwanath (sv2481)
 	+ William Raikes (wrr2109)
 	
 	
