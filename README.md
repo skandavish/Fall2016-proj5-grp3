@@ -18,7 +18,7 @@ To support needs for a range of financial decisions, Santander Bank offers a len
 	+ William Raikes (wrr2109)
 	
 	
-+**Contribution statement**: 
++ Contribution statement 
 
 The whole team agreed on the study.
 CH, JZ, ZC and WR discussed and designed the model evaluation protocol. 
