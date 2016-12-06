@@ -1,9 +1,15 @@
 # ADS Final Project: 
 
+![image](https://github.com/TZstatsADS/Fall2016-proj5-grp3/blob/master/figs/santander%20logo.gif)
+
 Term: Fall 2016
 
 + Team Name: The Santander Data Group
 + Projec title: [Santander Product Recommendation](https://www.kaggle.com/c/santander-product-recommendation)
++ Project Description
+
+To support needs for a range of financial decisions, Santander Bank offers a lending hand to their customers through personalized product recommendations. Our goal is to predict which products their existing customers will use in the next month based on their past behavior and that of similar customers.
+
 + Team members
 	+ Chenxi Huang (ch3129) (Celia)
 	+ Jingdan Zhao (jz2678)
