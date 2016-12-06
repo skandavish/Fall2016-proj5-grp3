@@ -10,12 +10,17 @@ Term: Fall 2016
 	+ Zachary (Zach) Chen (zc2317)
 	+ team member 4
 	+ William Raikes (wrr2109)
+	
+	
++**Contribution statement**: 
+The whole team agreed on the study.
+Chenxi cleaned the data. Chenxi explored feature engineering and feature selection.
+
+
+
 + Project summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 	
-**Contribution statement**: 
 
-Chenxi, Skanda, Jingdan, William and Zachary agreed on the study.
-Chenxi cleaned the data. Chenxi explored feature engineering and feature selection.
 Skanda created the clean dataset using a lean code. Skanda also created new features, rolled up the data and ensured no loss in information. Skanda tried boosting, random forest and multinomial logistic regression for predictions. 
 XX and XX developed baseline classification model for evaluation. 
 AB, EF and GH discussed and designed the model evaluation protocol. 
