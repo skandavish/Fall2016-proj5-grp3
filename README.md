@@ -30,10 +30,10 @@ Chenxi explored feature engineering and feature selection.
 Chenxi trained mlr and rFerns.
 Chenxi also explored naive bayes, multinomial and ML-KNN.
 
-
-
 Skanda created the clean dataset using a lean code. Skanda also created new features, rolled up the data and ensured no loss in information. Skanda tried boosting, random forest and multinomial logistic regression for predictions. 
 XX and XX developed baseline classification model for evaluation. 
+
+Zachary built decision tree models with a specific focus on Santander savings account. Zachary developed and visualized single decision trees, prune trees, and random forest trees for predictions and explanations purposes. Zachary also built prediction results and uploaded them on github. Zachary also participated in team meetings and shared and contributed his ideas to the team.  
 
 
 All team members contributed to the GitHub repository. 
