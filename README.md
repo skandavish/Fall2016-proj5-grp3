@@ -39,7 +39,7 @@ Skanda created the clean analytical dataset using a lean code. Skanda also creat
 
 Zachary built decision tree models with a specific focus on Santander savings account. Zachary developed and visualized single decision trees, prune trees, and random forest trees for predictions and explanations purposes. Zachary also built prediction results and uploaded them on github. Zachary also participated in team meetings and shared and contributed his ideas to the team.  
 
-William coded XGBoost & Random Forest models.  Also created baseline data.  And supported efforts in data exploration, feature engineering, and model building and selection.
+William coded XGBoost & Random Forest models.  Also created baseline data.  And supported efforts in data exploration, feature engineering, model building and selection, and reporting.
 
 All team members contributed to the GitHub repository. 
 All team members approve our work presented in our GitHub repository including this contribution statement.
