@@ -40,7 +40,7 @@ XX and XX developed baseline classification model for evaluation.
 
 Zachary built decision tree models with a specific focus on Santander savings account. Zachary developed and visualized single decision trees, prune trees, and random forest trees for predictions and explanations purposes. Zachary also built prediction results and uploaded them on github. Zachary also participated in team meetings and shared and contributed his ideas to the team.  
 
-William coded XGBoost models for comparison.  Also created baseline data.  And supported efforts in data exploration, feature engineering, and multi-label classification.
+William coded XGBoost & Random Forest models.  Also created baseline data.  And supported efforts in data exploration, feature engineering, and model building and selection.
 
 All team members contributed to the GitHub repository. 
 All team members approve our work presented in our GitHub repository including this contribution statement.
