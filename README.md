@@ -32,6 +32,8 @@ Chenxi trained mlr::rFerns and mlr::RandomForestSRC for predictions and explanat
 Chenxi prepared the presentation and is the presenter. 
 Chenxi organized group meetings, Github files and project descriptions.
 Chenxi also explored and researched on multi-label classification, naive bayes, multinomial and ML-KNN.
+Chenxi (with William) built baseline model and evaluated the results.
+Chenxi (with William) wrote the project report and organized the Github.
 
 Jingdan built SVM and Random Forest models.
 
