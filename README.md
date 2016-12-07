@@ -68,7 +68,8 @@ All team members approve our work presented in our GitHub repository including t
 
 
 
-################################ References ######################################
+
++ ################################ References ######################################
 
 [MLKNN publication](http://cs.nju.edu.cn/zhouzh/zhouzh.files/publication/pr07.pdf) 
 
@@ -81,7 +82,7 @@ All team members approve our work presented in our GitHub repository including t
 This folder is orgarnized as follows.
 
 
-################################ Thank you! ##################################
++ ################################ Thank you! ##################################
 ```
 proj/
 ├── lib/
