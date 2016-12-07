@@ -23,12 +23,14 @@ To support needs for a range of financial decisions, Santander Bank offers a len
 The whole team agreed on the study.
 CH, JZ, ZC and WR discussed and designed the model evaluation protocol. 
 CH, JZ, ZC and WR carried out the computation for model evaluation. 
-XXXXXXXX prepared the presentation
+CH prepared the presentation
 
 Chenxi cleaned the data. 
 Chenxi explored feature engineering and feature selection.
 Chenxi trained mlr::rFerns and mlr::RandomForestSRC for predictions and explanations purposes. 
-Chenxi also explored naive bayes, multinomial and ML-KNN.
+Chenxi prepared the presentation and is the presenter. 
+Chenxi organized group meetings, Github files and project descriptions.
+Chenxi also explored and researched on multi-label classification, naive bayes, multinomial and ML-KNN.
 
 Skanda created the clean dataset using a lean code. Skanda also created new features, rolled up the data and ensured no loss in information. Skanda tried boosting, random forest and multinomial logistic regression for predictions. 
 XX and XX developed baseline classification model for evaluation. 
