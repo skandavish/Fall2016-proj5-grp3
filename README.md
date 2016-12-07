@@ -43,11 +43,8 @@ Skanda created the clean analytical dataset using a lean code. Skanda also creat
 
 Zachary built decision tree models with a specific focus on Santander savings account. Zachary developed and visualized single decision trees, prune trees, and random forest trees for predictions and explanations purposes. Zachary also built prediction results and uploaded them on github. Zachary also participated in team meetings and shared and contributed his ideas to the team.  
 
-
-
 All team members contributed to the GitHub repository. 
 All team members approve our work presented in our GitHub repository including this contribution statement.
-
 
 
 + Project summary: The objective of this project is to apply a predictive algorithm to determine which products a consumer will have at a given time period. After processing the data, and imputing missing values, we included extra features that were originally included as outcome variables. These features showed which products a consumer had at a given month, and along with the demographics, were used to predict the user's products in the subsequent month. Another, less accurate method, just used the demographics of all the users, and produced a model predicting the subsequent month product selection. Many predictive models were employed, and by using cross-validation, several of the models were high performers. The final model selected was the XGBoost with the extra features, as it had the lowest error rate. It should be noted that a baseline model was also employed, and resulted in a decent performance as well. The baseline model was just an average likelihood of a certain product obtained by any given consumer. The written report is linked below, as well as the final presentation. Best error rate is **0.3%**.
@@ -64,11 +61,11 @@ All team members approve our work presented in our GitHub repository including t
 
 [**POWERPOINT PRESENTATION (pdf version, github-reading friendly)**](https://github.com/TZstatsADS/Fall2016-proj5-grp3/blob/master/proj5grp3_presentation_chenxi.pdf)
 
-+ ** *presentation slides prepared by Chenxi. Project report written by Chenxi and William* **
+** *presentation slides prepared by Chenxi. Project report written by Chenxi and William* **
 
 
 
-+ ################################ References ######################################
+################################ References ######################################
 
 [MLKNN publication](http://cs.nju.edu.cn/zhouzh/zhouzh.files/publication/pr07.pdf) 
 
@@ -81,7 +78,7 @@ All team members approve our work presented in our GitHub repository including t
 This folder is orgarnized as follows.
 
 
-+ ################################ Thank you! ##################################
+################################ Thank you! ##################################
 ```
 proj/
 ├── lib/
