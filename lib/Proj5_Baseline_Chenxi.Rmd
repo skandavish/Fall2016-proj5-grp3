@@ -5,3 +5,47 @@ date: "December 6, 2016"
 output: html_document
 ---
 
+```{r}
+setwd("C:/Users/celia/Desktop/Project 5")
+```
+
+```{r}
+#install packages
+#install.packages("ggplot2")
+#install.packages("dplr")
+```
+
+```{r}
+# load libraries
+library(ggplot2) # for visualization
+library(dplyr)
+set.seed(111)
+```
+
+```{r}
+# load data 
+load("./dt(other).Rdata")
+dt
+names(dt)
+dim(dt)
+# 1426529 by 49
+```
+
+```{r}
+############## create the baseline model ##################
+# this is just to determine by the majority/frequency
+# for example
+# say customer X has 17 records. 
+# For product 1 he purchased it 15/17 times (as long as over 17/2) 
+# then we just predict that he will purchase this again in the next month. 
+```
+
+```{r}
+############## subset variables ##################
+# we only need customer codes(representing unique customers) 
+# and 12 labels (representing whether to buy products)
+# other features will be ignored in this model
+
+
+```
+
