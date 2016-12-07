@@ -32,6 +32,7 @@ Chenxi prepared the presentation and is the presenter.
 Chenxi organized group meetings, Github files and project descriptions.
 Chenxi also explored and researched on multi-label classification, naive bayes, multinomial and ML-KNN.
 
+
 Skanda created the clean dataset using a lean code. Skanda also created new features, rolled up the data and ensured no loss in information. Skanda tried boosting, random forest and multinomial logistic regression for predictions. 
 XX and XX developed baseline classification model for evaluation. 
 
