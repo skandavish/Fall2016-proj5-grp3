@@ -35,8 +35,7 @@ Chenxi also explored and researched on multi-label classification, naive bayes, 
 
 Jingdan built SVM models. ......
 
-Skanda created the clean dataset using a lean code. Skanda also created new features, rolled up the data and ensured no loss in information. Skanda tried boosting, random forest and multinomial logistic regression for predictions. 
-XX and XX developed baseline classification model for evaluation. 
+Skanda created the clean analytical dataset using a lean code. Skanda also created new features that explained the month on month cariation thus making it possible to roll up the data by ensuring no loss in information. Skanda tried boosting, random forest and multinomial logistic regression for predictions.
 
 Zachary built decision tree models with a specific focus on Santander savings account. Zachary developed and visualized single decision trees, prune trees, and random forest trees for predictions and explanations purposes. Zachary also built prediction results and uploaded them on github. Zachary also participated in team meetings and shared and contributed his ideas to the team.  
 
