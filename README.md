@@ -33,7 +33,7 @@ Chenxi prepared the presentation and is the presenter.
 Chenxi organized group meetings, Github files and project descriptions.
 Chenxi also explored and researched on multi-label classification, naive bayes, multinomial and ML-KNN.
 
-Jingdan built SVM models. ......
+Jingdan built SVM and Random Forest models.
 
 Skanda created the clean analytical dataset using a lean code. Skanda also created new features that explained the month on month cariation thus making it possible to roll up the data by ensuring no loss in information. Skanda tried boosting, random forest and multinomial logistic regression for predictions.
 
@@ -62,7 +62,7 @@ All team members approve our work presented in our GitHub repository including t
 
 [mldr](https://cran.r-project.org/web/packages/mldr/vignettes/mldr.pdf)
 
-Following [suggestions](http://nicercode.github.io/blog/2013-04-05-projects/) by [RICH FITZJOHN](http://nicercode.github.io/about/#Team) (@richfitz). This folder is orgarnized as follows.
+This folder is orgarnized as follows.
 
 ```
 proj/
