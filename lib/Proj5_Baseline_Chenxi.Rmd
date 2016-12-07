@@ -46,6 +46,14 @@ dim(dt)
 # and 12 labels (representing whether to buy products)
 # other features will be ignored in this model
 
+# Select columns by name or helper function
+dt.sel.ncod = dplyr::select(dt, ncodpers, ind_ahor_fin_ult1:ind_recibo_ult1) %>%
+            group_by(ncodpers) %>%
+            summarise_each(dt, dt.sel.ncod=funs(mean)) %>%
+            select(dt.sel.ncod)
+
+dt.sel.ncod
+dim(dt.sel.ncod)
 
 ```
 
