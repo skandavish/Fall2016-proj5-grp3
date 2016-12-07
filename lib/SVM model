@@ -1,0 +1,44 @@
+load("df.2016_4.Rdata")
+train=df.2016_4
+load("df.2016_5.Rdata")
+test=df.2016_5
+
+ind=which(train[,11]=="unknown")
+ind2=which(test[,11]=="unknown")
+train[ind,11]=as.character(train[1,1])
+
+test[,11]=as.character(test[,11])
+test[ind2,11]=as.character(test[1,1])
+
+train$last.date=as.numeric(as.Date(train[1,1])-as.Date(train$ult_fec_cli_1t))
+train$first.date=as.numeric(as.Date(train[1,1])-as.Date(train$fecha_alta))
+
+test$last.date=as.numeric(as.Date(test[1,1])-as.Date(test$ult_fec_cli_1t))
+test$first.date=as.numeric(as.Date(test[1,1])-as.Date(test$fecha_alta))
+
+
+
+#SVM on current month to predict future month
+library(e1071)
+
+train=train[,-21]
+train[,11]=train[,49]
+train[,7]=train[,50]
+
+
+test=test[,-21]
+test[,11]=test[,49]
+test[,7]=test[,50]
+
+var=names(train)
+
+##about 20 mins  to run svm
+fit.svm=svm(ind_cco_fin_ult1~ind_empleado+pais_residencia+sexo+age+
+      fecha_alta+ind_nuevo+antiguedad+indrel+ult_fec_cli_1t+
+      indrel_1mes+tiprel_1mes+indresi+indext+conyuemp+canal_entrada+
+      indfall+tipodom+cod_prov+ind_actividad_cliente+renta+segmento,
+    data=train,type="C-classification",kernel="radial",cost=0.001)
+pred.svm=predict(fit.svm,test[,3:23])
+
+correct.rate.svm=sum(pred.svm==test[,26])/length(pred.svm)
+
