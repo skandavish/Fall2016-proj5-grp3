@@ -52,11 +52,11 @@ All team members approve our work presented in our GitHub repository including t
 
 
 
-+ ########## **we wrote a compherensive project report. Please click here for more details!** ##############
+ ########## **we wrote a compherensive project report. Please click here for more details!** ##############
 
-+ ########## **we wrote a compherensive project report. Please click here for more details!** ##############
+ ########## **we wrote a compherensive project report. Please click here for more details!** ##############
 
-+ ######################################### **Don't miss it!** #############################################
+ ######################################### **Don't miss it!** #############################################
 
 [**FINAL WRITTEN REPORT**](https://github.com/TZstatsADS/Fall2016-proj5-grp3/blob/master/project%205%20report_chenxi.pdf)
 
