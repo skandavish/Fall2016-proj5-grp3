@@ -339,3 +339,317 @@ r
 
 ```
 
+
+
+
+
+
+
+
+---
+  title: "Proj5_rFerns_Celia"
+author: "Chenxi Huang (ch3129)"
+date: "December 5, 2016"
+output: html_document
+---
+  ```{r}
+setwd("C:/Users/ch3129/Desktop/Project 5")
+```
+
+```{r}
+# install packages
+#install.packages("rFerns")
+#install.packages("mldr")
+#install.packages("mlr")
+#install.packages("gdata")
+# install.packages("randomForestSRC")
+```
+
+```{r}
+# load libraries
+library(rFerns)
+library(randomForestSRC)
+# for multi-lable classification
+library(mlr) #train masked
+# need to use mlr::train
+library(mldr)
+# for explatory analysis of multi-label classification 
+#library(cluster) # for gower similarity and pam
+#library(Rtsne) # for t-SNE plot
+library(ggplot2) # for visualization
+library(gdata)
+set.seed(111)
+```
+
+```{r}
+# load data 
+load("./dt(other).Rdata")
+dt
+dt.samp=dt
+
+names(dt)
+dim(dt)
+# 1426529 by 49
+
+############ for random forest ###########
+set.seed(2016)
+san.train=dt
+# unique: remove duplicated rows
+# discern unique Customer code
+unique.id.train=unique(san.train$ncodpers)
+unique.id.train
+summary(unique.id.train)
+length(unique.id.train) #100000
+# which rows have duplicated customer codes
+
+sample.size=1*10^3 # decide sample size of customer ID
+#sample.size=3*10^5 # this is too big
+set.seed(2016)
+unique.id.train.samp=unique.id.train[sample(length(unique.id.train),sample.size,replace = FALSE)]
+unique.id.train.samp
+length(unique.id.train.samp) #1000
+
+# sample the dataset with only 300,000 unique customers now
+t1=Sys.time()
+dt.samp=san.train[san.train$ncodpers %in% unique.id.train.samp,]
+t2=Sys.time()
+t2- t1
+# Time difference of 12.3628 secs 
+
+
+dt.samp
+dim(dt.samp) 
+# 14292 by 49
+dt=dt.samp
+################################################################
+```
+
+```{r}
+#get data in the right format
+# need a data.frame
+class(dt)
+# data frame
+
+# include features and a logical vector for each label 
+lab.col=dt[,26:49]
+labels=names(lab.col)
+lab.mat=matrix(nrow=nrow(lab.col),ncol=ncol(lab.col))
+
+# assign logical values
+ind.10=which(lab.col$ind_ahor_fin_ult1 == 0)
+ind.11=which(lab.col$ind_ahor_fin_ult1 == 1)
+lab.mat[,1][ind.10] = F
+lab.mat[,1][ind.11] = T
+
+ind.20=which(lab.col$ind_aval_fin_ult1 == 0)
+ind.21=which(lab.col$ind_aval_fin_ult1 == 1)
+lab.mat[,2][ind.20]=F
+lab.mat[,2][ind.21]=T
+
+ind.30=which(lab.col$ind_cco_fin_ult1 == 0)
+ind.31=which(lab.col$ind_cco_fin_ult1 == 1)
+lab.mat[,3][ind.30]=F
+lab.mat[,3][ind.31]=T
+
+ind.40=which(lab.col$ind_cder_fin_ult1 == 0)
+ind.41=which(lab.col$ind_cder_fin_ult1 == 1)
+lab.mat[,4][ind.40]=F
+lab.mat[,4][ind.41]=T
+
+ind.50=which(lab.col$ind_cno_fin_ult1 == 0)
+ind.51=which(lab.col$ind_cno_fin_ult1 == 1)
+lab.mat[,5][ind.50]=F
+lab.mat[,5][ind.51]=T
+
+ind.60=which(lab.col$ind_ctju_fin_ult1 == 0)
+ind.61=which(lab.col$ind_ctju_fin_ult1 == 1)
+lab.mat[,6][ind.60]=F
+lab.mat[,6][ind.61]=T
+
+ind.70=which(lab.col$ind_ctma_fin_ult1 == 0)
+ind.71=which(lab.col$ind_ctma_fin_ult1 == 1)
+lab.mat[,7][ind.70]=F
+lab.mat[,7][ind.71]=T
+
+ind.80=which(lab.col$ind_ctop_fin_ult1 == 0)
+ind.81=which(lab.col$ind_ctop_fin_ult1 == 1)
+lab.mat[,8][ind.80]=F
+lab.mat[,8][ind.81]=T
+
+ind.90=which(lab.col$ind_ctpp_fin_ult1 == 0)
+ind.91=which(lab.col$ind_ctpp_fin_ult1 == 1)
+lab.mat[,9][ind.90]=F
+lab.mat[,9][ind.91]=T
+
+ind.100=which(lab.col$ind_deco_fin_ult1 == 0)
+ind.101=which(lab.col$ind_deco_fin_ult1 == 1)
+lab.mat[,10][ind.100]=F
+lab.mat[,10][ind.101]=T
+
+ind.110=which(lab.col$ind_deme_fin_ult1 == 0)
+ind.111=which(lab.col$ind_deme_fin_ult1 == 1)
+lab.mat[,11][ind.110]=F
+lab.mat[,11][ind.111]=T
+
+ind.120=which(lab.col$ind_dela_fin_ult1 == 0)
+ind.121=which(lab.col$ind_dela_fin_ult1 == 1)
+lab.mat[,12][ind.120]=F
+lab.mat[,12][ind.121]=T
+
+ind.130=which(lab.col$ind_ecue_fin_ult1 == 0)
+ind.131=which(lab.col$ind_ecue_fin_ult1 == 1)
+lab.mat[,13][ind.130]=F
+lab.mat[,13][ind.131]=T
+
+ind.140=which(lab.col$ind_fond_fin_ult1 == 0)
+ind.141=which(lab.col$ind_fond_fin_ult1 == 1)
+lab.mat[,14][ind.140]=F
+lab.mat[,14][ind.141]=T
+
+ind.150=which(lab.col$ind_hip_fin_ult1 == 0)
+ind.151=which(lab.col$ind_hip_fin_ult1 == 1)
+lab.mat[,15][ind.150]=F
+lab.mat[,15][ind.151]=T
+
+ind.160=which(lab.col$ind_plan_fin_ult1 == 0)
+ind.161=which(lab.col$ind_plan_fin_ult1 == 1)
+lab.mat[,16][ind.160]=F
+lab.mat[,16][ind.161]=T
+
+ind.170=which(lab.col$ind_pres_fin_ult1 == 0)
+ind.171=which(lab.col$ind_pres_fin_ult1 == 1)
+lab.mat[,17][ind.170]=F
+lab.mat[,17][ind.171]=T
+
+ind.180=which(lab.col$ind_reca_fin_ult1 == 0)
+ind.181=which(lab.col$ind_reca_fin_ult1 == 1)
+lab.mat[,18][ind.180]=F
+lab.mat[,18][ind.181]=T
+
+ind.190=which(lab.col$ind_tjcr_fin_ult1 == 0)
+ind.191=which(lab.col$ind_tjcr_fin_ult1 == 1)
+lab.mat[,19][ind.190]=F
+lab.mat[,19][ind.191]=T
+
+ind.200=which(lab.col$ind_valo_fin_ult1 == 0)
+ind.201=which(lab.col$ind_valo_fin_ult1 == 1)
+lab.mat[,20][ind.200]=F
+lab.mat[,20][ind.201]=T
+
+ind.210=which(lab.col$ind_viv_fin_ult1 == 0)
+ind.211=which(lab.col$ind_viv_fin_ult1 == 1)
+lab.mat[,21][ind.210]=F
+lab.mat[,21][ind.211]=T
+
+ind.220=which(lab.col$ind_nomina_ult1 == 0)
+ind.221=which(lab.col$ind_nomina_ult1 == 1)
+lab.mat[,22][ind.220]=F
+lab.mat[,22][ind.221]=T
+
+ind.230=which(lab.col$ind_nom_pens_ult1 == 0)
+ind.231=which(lab.col$ind_nom_pens_ult1 == 1)
+lab.mat[,23][ind.230]=F
+lab.mat[,23][ind.231]=T
+
+ind.240=which(lab.col$ind_recibo_ult1 == 0)
+ind.241=which(lab.col$ind_recibo_ult1 == 1)
+lab.mat[,24][ind.240]=F
+lab.mat[,24][ind.241]=T
+
+lab.mat
+#san=cbind(lab.mat,dt[,1:25])
+
+dim(lab.mat)
+# 1426529 by 24
+labels=c("label1","label2","label3","label4","label5","label6","label7","label8",
+         "label9","label10","label11","label12","label13","label14","label15","label16",
+         "label17","label18","label19","label20","label21","label22","label23","label24")
+
+colnames(lab.mat) = labels
+length(labels)
+
+
+#labels = colnames(dt)[1:14]
+
+san= cbind(dt[,1:25],lab.mat)
+san[1,]
+
+# create the task
+san.task = makeMultilabelTask(id = "multi", data = san, target = labels)
+san.task
+
+# data ready
+```
+
+
+```{r}
+
+san.forest = makeLearner("multilabel.randomForestSRC")
+san.forest
+
+
+```
+
+```{r}
+# Training
+# train a model as usual with a multilabel learner and a multilabel task as input. 
+# can also pass subset and weights arguments if the learner supports this.
+
+###### random forest #########
+t1=Sys.time()
+mod.forest = mlr::train(learner=san.forest, task=san.task)
+mod.forest
+t2=Sys.time()
+t2 - t1
+#Time difference of 58.95171 secs
+
+class(mod.forest) #"WrappedModel"
+
+```
+
+
+```{r}
+# Predicting
+
+# can be done as usual in mlr with predict 
+pred1 = predict(mod, task = san.task, subset = 1:10)
+t1 = sys.time()
+pred2 = predict(mod, task = san.task)
+t2.sys.time()
+t2 - t1
+pred3 = predict(mod, task = san.task, subset = 50000:10000)
+names(as.data.frame(pred))
+```
+
+```{r}
+# Performance
+#performance of prediction can be assessed via function performance
+#can specify via the measures argument which measure(s) to calculate
+#The default measure for multilabel classification is the Hamming loss (multilabel.hamloss)
+performance(pred1)
+# error rate is # 0.09166667 
+
+performance(pred2)
+# error rate is # 0.2338637 
+
+performance(pred3)
+# error rate is #  0.2746598 
+
+performance(pred1, measures = list(multilabel.subset01, multilabel.hamloss, multilabel.acc,
+                                   multilabel.f1, timepredict))
+
+listMeasures("multilabel")
+```
+
+```{r}
+# Resampling
+learner=san.ferns
+task=san.task
+#For evaluating the overall performance of the learning algorithm
+rdesc = makeResampleDesc(method = "CV", stratify = FALSE, iters = 3)
+r = resample(learner, task, resampling = rdesc, show.info = FALSE)
+r
+
+
+```
+
