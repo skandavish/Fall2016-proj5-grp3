@@ -27,7 +27,7 @@ XXXXXXXX prepared the presentation
 
 Chenxi cleaned the data. 
 Chenxi explored feature engineering and feature selection.
-Chenxi trained mlr and rFerns.
+Chenxi trained mlr::rFerns and mlr::RandomForestSRC for predictions and explanations purposes. 
 Chenxi also explored naive bayes, multinomial and ML-KNN.
 
 Skanda created the clean dataset using a lean code. Skanda also created new features, rolled up the data and ensured no loss in information. Skanda tried boosting, random forest and multinomial logistic regression for predictions. 
