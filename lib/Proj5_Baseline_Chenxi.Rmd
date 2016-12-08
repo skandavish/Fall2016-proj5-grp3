@@ -1,0 +1,97 @@
+---
+title: "Proj5_Baseline_Chenxi"
+author: "Chenxi Huang (ch3129)"
+date: "December 6, 2016"
+output: html_document
+---
+
+```{r}
+library(dplyr)
+
+setwd("C:/Users/celia/Desktop/Project 5")
+load('df(final).RData')
+
+baseline <- df[ , c(2, 25:48)] %>%
+  group_by(ncodpers) %>%
+  summarise_each(funs(mean))
+
+baseline
+dim(baseline)
+nrow(baseline) == length(unique(df$ncodpers)) #true
+
+baseline[2:25] <- ifelse(baseline[2:25] >= 0.5, 1, 0)
+
+baseline = as.data.frame(baseline)
+dim(baseline) #100000     25
+class(baseline)
+names(baseline)
+
+(baseline)[1,]
+
+summary(df$ncodpers)
+```
+
+
+
+
+```{r}
+# cross validate
+
+
+set.seed(111)
+cv.function <- function(X.train, y.train, K){
+  
+  n <- length(y.train)
+  n.fold <- floor(n/K)
+  s <- sample(rep(1:K, c(rep(n.fold, K-1), n-(K-1)*n.fold)))  
+  cv.error <- rep(NA, K)
+  
+  
+  for (i in 1:K){
+    #train.data <- X.train[s != i]
+    #train.label <- y.train[s != i,]
+    test.data <- X.train[s == i]
+    ind=match(test.data,df$ncodpers)
+    test.label <- cv.data.y[ind,]
+    
+    #par <- list(depth=d)
+    #fit <- train(train.data, train.label, par)
+     
+    mat.pred=vector()
+    #dim(mat.pred)
+    for(j in 1:length(test.data))
+      {
+      cus.ind=which(baseline$ncodpers == test.data[j])
+      this_pred = y.train[cus.ind,]
+      mat.pred = rbind(mat.pred,this_pred)
+    }
+    
+    pred <-  mat.pred 
+    cv.error[i] <- mean( pred != test.label)  
+    
+    
+  }			
+  return(c(mean(cv.error),sd(cv.error)))
+  
+}
+
+
+#K=5
+
+X.train = baseline$ncodpers
+length(X.train)
+y.train = baseline[,2:25]
+dim(y.train)
+
+cv.data.y=df[,25:48]
+dim(cv.data.y)
+names(cv.data.y)
+
+cv.data.x=df$ncodpers
+cv.function(X.train =cv.data.x, y.train = cv.data.y, K=1)
+
+
+
+# K=5, i=1, error rate = 0
+```
+
