@@ -11,6 +11,10 @@ Term: Fall 2016
 
 To support needs for a range of financial decisions, Santander Bank offers a lending hand to their customers through personalized product recommendations. Our goal is to predict which products their existing customers will use in the next month based on their past behavior and that of similar customers.
 
++ Project Interestingness
+
+(1) product recommendation has become a hot, competitive and lucrative topic in the data science area over the years. This serves as a informative tool for marketing, strategizing, finance, management and more. (2) Multi-labbel classification, different from multi-class classification has been puzzling lots of academics developing R. In this project, we used a newly established technique: mlR (machine learning in R) to solve this problem, as a comparisom to the traditional ways. This of course gives us an opportunity to assess the new tool mlR regarding its performance in multi-label classification problems. (3) when we are looing for jobs in data science, finance or consulting, this project would become a very good catalyst for interview conversations. 
+
 + Team members
 	+ Chenxi Huang (ch3129) (Celia)
 	+ Jingdan Zhao (jz2678)
